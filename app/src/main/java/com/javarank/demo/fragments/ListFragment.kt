@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.javarank.demo.R
+import com.javarank.demo.activity.DetailsActivity
 import com.javarank.demo.adapter.ListAdapter
 import com.javarank.demo.callback.OnItemClickListener
 import com.javarank.demo.model.User
@@ -56,7 +56,12 @@ class ListFragment: Fragment() {
     private fun setUpAdapter() {
         adapter.setOnItemClickListener(onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(position: Int, view: View?) {
-                Toast.makeText(view?.context, "Clicked On "+position, Toast.LENGTH_SHORT).show()
+                var user = adapter.getItem(position)
+                startActivity(context?.let {ctx ->
+                    user?.let {
+                            user -> DetailsActivity.newIntent(ctx, user)
+                    }
+                })
             }
         })
     }
